@@ -8,7 +8,7 @@ const Collaborator = ({ roomId, creatorId, collaborator, email, user }: Collabor
     const [loading, setLoading] = useState(false)
 
     const shareDocumentHandler = async (type: string) => {
-
+        
     }
 
     const removeCollaboratorHandler = async (email: string) => {
