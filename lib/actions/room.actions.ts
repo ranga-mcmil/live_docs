@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid'
 import { revalidatePath } from 'next/cache';
 import { getAccessType, parseStringify } from '../utils';
 import { liveblocks } from '../liveblocks';
+import { redirect } from 'next/navigation';
 
 export const createDocument = async({ userId, email }: CreateDocumentParams) => {
     const roomId = nanoid()
@@ -117,5 +118,15 @@ export const removeCollaborator = async ({roomId, email}: { roomId: string, emai
         return parseStringify(updatedRoom)
     } catch (error) {
         throw new Error(`blahh blahh error removing a collaborator: ${error}`)
+    }
+}
+
+export const deleteDocument = async (roomId: string) => {
+    try {
+        await liveblocks.deleteRoom(roomId)
+        revalidatePath('/')
+        redirect('/')
+    } catch (error) {
+        throw new Error(`blahh blahh error deleting a document: ${error}`)
     }
 }
